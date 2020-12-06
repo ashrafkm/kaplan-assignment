@@ -15,15 +15,16 @@ const swaggerOptions: any = {
         info: "Kaplan assignment API",
         version: "1.0.0"
     },
-    apis: ["./routes/index.ts"]
+    apis: ["./src/routes/assignment/index.ts"]
 }
+
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 /**
  * @api {get} /
- * @apiName DeliveryRequest
- * @apiGroup DeliveryRequest
+ * @apiName AssignmentRequest
+ * @apiGroup AssignmentRequest
  *
  * @apiSuccess {String} type Json Type.
  */
@@ -53,8 +54,7 @@ export class AssignmentRoute extends BaseRoute {
         logger.info('[AssignmentRoute] Creating AssignmentRoute route.');
 
         // add index page route
-        this.router.use('/api-docs', swaggerUI.serve);
-        this.router.get('/api-docs', swaggerUI.setup(swaggerDocs));
+        this.router.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
         this.router.get('/list', this.list);
         this.router.post('/create', this.CreateNewAssignment);
         this.router.get('/search', this.searchAssignmentByTags);
@@ -68,14 +68,15 @@ export class AssignmentRoute extends BaseRoute {
      * 
      * @swagger
      * /list:
-     *   get:
-     *     description: Get all assignment
-     *     responses:
-     *          200
-     *             description: Success
+     *      get:
+     *         description: Get all assignment
+     *            responses:
+     *               200
+     *                  description: Success
      */
     private async list(req: Request, res: Response, next: NextFunction) {
         try {
+
             let query: Array<object> = [
                 { $match: { deleted: { $ne: 1 } } },
                 {
@@ -99,6 +100,7 @@ export class AssignmentRoute extends BaseRoute {
 
     /**
      * @swagger
+     * /:id
      * @param req 
      * @param res 
      * @param next 
@@ -162,7 +164,7 @@ export class AssignmentRoute extends BaseRoute {
         }
     }
 
-    public async UpdateAssignment(req: Request, res: Response, next: NextFunction) {
+    private async UpdateAssignment(req: Request, res: Response, next: NextFunction) {
         try {
             unSetDataWhichIsNotRequired(req);
             FormatRequestData(req.body);
@@ -177,7 +179,7 @@ export class AssignmentRoute extends BaseRoute {
         }
     }
 
-    public async AddTags(req: Request, res: Response, next: NextFunction) {
+    private async AddTags(req: Request, res: Response, next: NextFunction) {
         try {
             if (!req.body.tags || req.body.tags.length === 0) {
                 res.status(400).json({ code: 400, message: 'Tags are required.' })
@@ -189,7 +191,7 @@ export class AssignmentRoute extends BaseRoute {
         }
     }
 
-    public async DeleteAssignment(req: Request, res: Response, next: NextFunction) {
+    private async DeleteAssignment(req: Request, res: Response, next: NextFunction) {
         try {
             const response = await Assignment.updateOne({ _id: Types.ObjectId(req.params.id) }, { $set: { deleted: 1 } });
             if (response.nModified > 0) {

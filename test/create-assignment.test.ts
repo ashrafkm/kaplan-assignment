@@ -20,7 +20,7 @@ describe('Assignment Test', () => {
 
     it('create new assignment', async () => {
         const validData = new Assignment(payload);
-        const savedData = await validData.save();
+        const savedData: any = await validData.save();
         // Object Id should be defined when successfully saved to MongoDB.
         expect(savedData._id).toBeDefined();
         expect(savedData.title).toBe(payload.title);
@@ -31,7 +31,7 @@ describe('Assignment Test', () => {
     // Test Schema is working!!!
     // You shouldn't be able to add in any field that isn't defined in the schema
     it('insert successfully, but the field does not defined in schema should be undefined', async () => {
-        const userWithInvalidField = new Assignment({ title: 'TekLoon', type: 'Male', description: 'Handsome TekLoon' });
+        const userWithInvalidField: any = new Assignment({ title: 'TekLoon', type: 'Male', description: 'Handsome TekLoon' });
         const savedDataWithInvalidField = await userWithInvalidField.save();
         expect(savedDataWithInvalidField._id).toBeDefined();
         expect(savedDataWithInvalidField.duration).toBeUndefined();

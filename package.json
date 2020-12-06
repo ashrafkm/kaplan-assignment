@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "techstars fullstack challenge app",
+  "description": "Kaplan Assignment",
   "main": "app.js",
   "scripts": {
     "test": "jest",

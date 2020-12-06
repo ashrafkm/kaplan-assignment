@@ -69,13 +69,15 @@ export class Server {
       connectionString = config.get('connectionString');
     }
 
-    mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-      .then((e) => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
-        console.log('DB CONNECTED :');
-      }).catch(err => {
-        console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
-        // process.exit();
-      });
+    async function connectDB() {
+      try {
+        const data = await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
+      } catch (error) {
+        console.log('MongoDB connection error. Please make sure MongoDB is running. ' + error);
+
+      }
+    }
+    connectDB();
 
 
     this.app.use(express.static(path.join(__dirname, 'public')));
