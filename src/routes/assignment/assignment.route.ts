@@ -91,7 +91,7 @@ export class AssignmentRoute extends BaseRoute {
                 { $sort: { createdAt: -1 } }
             ]
             const response: Array<any> = await Assignment.aggregate(query);
-            res.json({ status: 200, data: response })
+            res.json({ code: 200, total: response.length, data: response, })
         } catch (error) {
             next(error)
         }
@@ -119,7 +119,7 @@ export class AssignmentRoute extends BaseRoute {
                 }
             ]
             const response: Array<any> = await Assignment.aggregate(query);
-            res.json({ status: 200, data: response[0] })
+            res.json({ code: 200, data: response[0] })
         } catch (error) {
             next(error)
         }
