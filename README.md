@@ -11,7 +11,8 @@
 ### Get started:
   1. Clone the repo: `$ git clone https://github.com/ashrafkm/kaplan-assignment.git`
   2. Install dependencies: `$ npm install `
-  3. Run the api: `$ npm run dev` 
+  3. Run the server: `$ npm run dev` 
+  4. Unit test: `$ npm test`
 
 ### API's
 1. List assignments: 
