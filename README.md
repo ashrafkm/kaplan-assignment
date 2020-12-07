@@ -75,14 +75,13 @@
 ```javascript 
 "METHOD": POST: 
 "URL": localhost:7010/api/assignment/create
-"Request body": 
- {
+"Request body": {
     "title":"test name",
     "description":"test desc",
     "type":"test type",
     "tags":["kana", "julian"],
-  }
-  "RESPONSE":{
+}
+"RESPONSE":{
     "code": 200,
     "message": "Succesfully created!.",
     "data": {
