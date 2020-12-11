@@ -3,5 +3,5 @@
   "host": "localhost",
   "apiURL": "http://localhost:7010",
   "databaseName": "kaplan",
-  "connectionString": "mongodb+srv://admin:admin@covid-19.bx0qf.mongodb.net/kaplan?retryWrites=true&w=majority"
+  "connectionString": ""
 }
